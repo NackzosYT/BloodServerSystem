@@ -2265,7 +2265,6 @@ Bunmutechannel - فتح الشات
 
 
 client.on('message', message => {
-	var prefix = "!";
    if(!message.channel.guild) return;
 if(message.content.startsWith(prefix + 'clear')) {
 if(!message.channel.guild) return message.channel.send('**This Command is Just For Servers**').then(m => m.delete(5000));
