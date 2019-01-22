@@ -1,4 +1,4 @@
-﻿const Discord = require('discord.js');
+const Discord = require('discord.js');
 const client = new Discord.Client();
 const convert = require("hh-mm-ss")
 const dateFormat = require('dateformat');
@@ -15,6 +15,77 @@ let done = {};
 const prefix = 'B'
 
 
+
+client.on('message', message => {
+       if(message.content === prefix + "mutechannel") {
+                           if(!message.channel.guild) return message.reply('** This command only for servers**');
+
+   if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply(' **__ليس لديك صلاحيات__**');
+              message.channel.overwritePermissions(message.guild.id, {
+            SEND_MESSAGES: false
+
+              }).then(() => {
+                  message.reply("**__تم تقفيل الشات__ :white_check_mark: **")
+              });
+                }
+//FIRE BOT
+    if(message.content === prefix + "unmutechannel") {
+                        if(!message.channel.guild) return message.reply('** This command only for servers**');
+
+   if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('**__ليس لديك صلاحيات__**');
+              message.channel.overwritePermissions(message.guild.id, {
+            SEND_MESSAGES: true
+
+              }).then(() => {
+                  message.reply("**__تم فتح الشات__:white_check_mark:**")
+              });
+    }
+       
+});
+
+client.on('message', message => {
+      if(message.content === prefix + "hchannel") {
+      if(!message.channel.guild) return;
+      if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply('You Dont Have Perms :x:');
+             message.channel.overwritePermissions(message.guild.id, {
+             READ_MESSAGES: false
+ })
+              message.channel.send('Channel Hided Successfully ! :white_check_mark:  ')
+ }
+});
+
+
+client.on('message', message => {
+      if(message.content === prefix + "schannel") {
+      if(!message.channel.guild) return;
+      if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply(':x:');
+             message.channel.overwritePermissions(message.guild.id, {
+             READ_MESSAGES: true
+ })
+              message.channel.send('Done  ')
+ }
+});
+
+
+client.on('message', omar => {
+if(omar.content.split(' ')[0] == prefix + 'dc') {  // delete all channels
+if (!omar.channel.guild) return;
+if(!omar.guild.member(omar.author).hasPermission("MANAGE_CHANNELS")) return omar.reply("**You Don't Have ` MANAGE_CHANNELS ` Permission**");
+if(!omar.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return omar.reply("**I Don't Have ` MANAGE_CHANNELS ` Permission**");
+omar.guild.channels.forEach(m => {
+m.delete();
+});// omar jedol / Codes
+}// omar jedol / Codes
+if(omar.content.split(' ')[0] == prefix + 'dr') { // delete all roles
+if (!omar.channel.guild) return;
+if(!omar.guild.member(omar.author).hasPermission("MANAGE_ROLES_OR_PERMISSIONS")) return omar.reply("**You Don't Have ` MANAGE_ROLES_OR_PERMISSIONS ` Permission**");
+if(!omar.guild.member(client.user).hasPermission("MANAGE_ROLES_OR_PERMISSIONS")) return omar.reply("**I Don't Have ` MANAGE_ROLES_OR_PERMISSIONS ` Permission**");
+omar.guild.roles.forEach(m => {
+m.delete();
+});// omar jedol / Codes
+omar.reply("`تم حذف جميع الرتب بنجاح`")
+}// omar jedol / Codes
+});
 
 
 
@@ -2165,7 +2236,11 @@ and to turn on the autorole type ${prefix}autorole toggle)**
 ❯ ${prefix}setDays → Create Day Room 
 ❯ ${prefix}setCount → Member Count Room 
 ❯ ${prefix}setVoice → Create Voice Online Room 
+Bhchannel - اخفاء الشات
+Bschannel - اضهار الشات المخفية
 
+Bmutechannel - تقفيل الشات
+Bunmutechannel - فتح الشات
 
 :barber: __Colors Commands:__
 ❯ ${prefix}deletecolors → delete 132 colors
